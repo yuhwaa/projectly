@@ -1,17 +1,18 @@
 // src/components/ProjectAddModal.tsx
 import React, { useState } from 'react';
 import { addProject } from '../projectsData'; // Update the path accordingly
+import { useProjectContext } from "../context/ProjectContext";
 
 interface ProjectAddModalProps {
   onClose: () => void;
-  onProjectAdd: () => void;
 }
 
-const ProjectAddModal: React.FC<ProjectAddModalProps> = ({ onClose, onProjectAdd }) => {
+const ProjectAddModal: React.FC<ProjectAddModalProps> = ({ onClose }) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     // const [dueDate, setDueDate] = useState('');
     // const [priority, setPriority] = useState('High');
+    const { onProjectAdd } = useProjectContext();
 
     const handleSave = () => {
     // Handle saving the new project (you can add API calls or state management here)

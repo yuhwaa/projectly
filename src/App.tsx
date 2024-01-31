@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ProjectList from "./components/ProjectList";
-import { getProjects, addProject } from './projectsData'; 
+import { getProjects } from './projectsData'; 
+import { ProjectProvider } from "./context/ProjectContext";
 
 const App: React.FC = () => {
   const [projects, setProjects] = useState(getProjects());
@@ -8,9 +9,12 @@ const App: React.FC = () => {
     setProjects(getProjects()); // Update projects state after adding a new project
   };
   return (
-    <div>
-      <ProjectList projects={projects} onProjectAdd={handleProjectAdd} />
-    </div>
+    <ProjectProvider onProjectAdd={handleProjectAdd}>
+      <div>
+        <ProjectList projects={projects} />
+      </div>
+    </ProjectProvider>
+
   );
 };
 

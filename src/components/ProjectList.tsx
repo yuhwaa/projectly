@@ -2,6 +2,7 @@ import { useState } from "react";
 import ProjectAddModal from './ProjectAddModal';
 import ProjectEditModal from "./ProjectEditModal";
 import { Project } from '../projectsData';
+import { useProjectContext } from "../context/ProjectContext";
 
 // interface Project {
 //     id: number;
@@ -13,10 +14,10 @@ import { Project } from '../projectsData';
 
 interface ProjectListProps {
     projects: Project[];
-    onProjectAdd: () => void;
   }
 
-const ProjectList: React.FC<ProjectListProps> = ({ projects, onProjectAdd }) => {
+const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
+    const { onProjectAdd } = useProjectContext();
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -70,7 +71,6 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, onProjectAdd }) => 
         {isAddModalOpen && (
             <ProjectAddModal
                 onClose={() => setIsAddModalOpen(false)}
-                onProjectAdd={onProjectAdd}
             />
         )}
       </div>
