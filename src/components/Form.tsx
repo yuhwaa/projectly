@@ -1,41 +1,41 @@
 import React, { useState, useEffect } from "react";
 
-interface TaskFormProps {
+interface ProjectFormProps {
   onSubmit: (
-    title: string,
+    name: string,
     description: string,
     dueDate: string,
     priority: string
   ) => void;
-  initialTitle?: string;
+  initialName?: string;
   initialDescription?: string;
   initialDueDate?: string;
   initialPriority?: string;
 }
 
-const TaskForm: React.FC<TaskFormProps> = ({
+const ProjectForm: React.FC<ProjectFormProps> = ({
   onSubmit,
-  initialTitle = "",
+  initialName = "",
   initialDescription = "",
   initialDueDate = "",
-  initialPriority = "",
+  initialPriority = "High",
 }) => {
-  const [title, setTitle] = useState(initialTitle);
+  const [name, setName] = useState(initialName);
   const [description, setDescription] = useState(initialDescription);
   const [dueDate, setDueDate] = useState(initialDueDate);
   const [priority, setPriority] = useState(initialPriority);
 
   useEffect(() => {
-    setTitle(initialTitle);
+    setName(initialName);
     setDescription(initialDescription);
     setDueDate(initialDueDate);
     setPriority(initialPriority);
-  }, [initialTitle, initialDescription, initialDueDate, initialPriority]);
+  }, [initialName, initialDescription, initialDueDate, initialPriority]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(title, description, dueDate, priority);
-    setTitle("");
+    onSubmit(name, description, dueDate, priority);
+    setName("");
     setDescription("");
     setDueDate("");
     setPriority("");
@@ -47,14 +47,14 @@ const TaskForm: React.FC<TaskFormProps> = ({
       onSubmit={handleSubmit}
     >
       <div className="flex flex-col">
-        <label htmlFor="title" className="mb-1">
-          Title:
+        <label htmlFor="name" className="mb-1">
+          Name:
         </label>
         <input
           type="text"
-          id="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           className="px-3 py-2 border border-gray-300 rounded-md"
         />
       </div>
@@ -104,10 +104,10 @@ const TaskForm: React.FC<TaskFormProps> = ({
         type="submit"
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
-        Create Task
+        Create Project
       </button>
     </form>
   );
 };
 
-export default TaskForm;
+export default ProjectForm;
