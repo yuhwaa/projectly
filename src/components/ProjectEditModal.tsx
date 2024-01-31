@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 interface ProjectEditModalProps {
-  project: {
+    project: {
     id: number;
     name: string;
     description: string;

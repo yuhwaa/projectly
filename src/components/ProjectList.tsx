@@ -1,20 +1,22 @@
 import { useState } from "react";
 import ProjectAddModal from './ProjectAddModal';
 import ProjectEditModal from "./ProjectEditModal";
+import { Project } from '../projectsData';
 
-interface Project {
-    id: number;
-    name: string;
-    description: string;
-    dueDate: string;
-    priority: string;
-}
+// interface Project {
+//     id: number;
+//     name: string;
+//     description: string;
+//     dueDate: string;
+//     priority: string;
+// }
 
 interface ProjectListProps {
     projects: Project[];
-}
+    onProjectAdd: () => void;
+  }
 
-const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
+const ProjectList: React.FC<ProjectListProps> = ({ projects, onProjectAdd }) => {
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -41,8 +43,8 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
           <div className="bg-white rounded-lg shadow-md p-4">
             <h3 className="text-lg font-semibold mb-2">{project.name}</h3>
             <p className="mb-2">{project.description}</p>
-            <p className="mb-2">Due Date: {project.dueDate}</p>
-            <p className="mb-2">Priority: {project.priority}</p>
+            {/* <p className="mb-2">Due Date: {project.dueDate}</p>
+            <p className="mb-2">Priority: {project.priority}</p> */}
             <button
               onClick={() => handleEditProject(project)}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
@@ -68,6 +70,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
         {isAddModalOpen && (
             <ProjectAddModal
                 onClose={() => setIsAddModalOpen(false)}
+                onProjectAdd={onProjectAdd}
             />
         )}
       </div>

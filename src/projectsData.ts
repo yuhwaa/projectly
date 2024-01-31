@@ -3,6 +3,8 @@ interface Project {
   id: number;
   name: string;
   description: string;
+  // dueDate: string;
+  // priority: string;
 }
 
 let projects: Project[] = [
@@ -15,4 +17,6 @@ const addProject = (newProject: Project) => {
   projects = [...projects, newProject];
 };
 
-export default { projects, addProject };
+const getProjects = () => projects;
+
+export { addProject, getProjects };

@@ -4,10 +4,10 @@ import { addProject } from '../projectsData'; // Update the path accordingly
 
 interface ProjectAddModalProps {
   onClose: () => void;
+  onProjectAdd: () => void;
 }
 
-const ProjectAddModal: React.FC<ProjectAddModalProps> = ({ onClose }) => {
-   
+const ProjectAddModal: React.FC<ProjectAddModalProps> = ({ onClose, onProjectAdd }) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     // const [dueDate, setDueDate] = useState('');
@@ -16,15 +16,15 @@ const ProjectAddModal: React.FC<ProjectAddModalProps> = ({ onClose }) => {
     const handleSave = () => {
     // Handle saving the new project (you can add API calls or state management here)
     const newProject = {
-        id:Date.now(),
+        id: Date.now(),
         name: name,
         description: description,
         // dueDate,
         // Priority,
     };
     addProject(newProject); // Add the new project to the projects array
-    alert('Adding new project');
-    onClose();
+    onProjectAdd(); // Inform App.tsx that a new project has been added???
+    onClose(); // Close the modal after saving
   };
 
   return (
