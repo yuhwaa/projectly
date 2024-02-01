@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ProjectAddModal from './ProjectAddModal';
 import ProjectEditModal from "./ProjectEditModal";
-import { Project } from '../projectsData';
+import { Project, deleteProject } from '../projectsData';
 import { useProjectContext } from "../context/ProjectContext";
 
 // interface Project {
@@ -14,10 +14,10 @@ import { useProjectContext } from "../context/ProjectContext";
 
 interface ProjectListProps {
     projects: Project[];
-  }
+}
 
 const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
-    const { onProjectAdd } = useProjectContext();
+    const { onProjectAdd } = useProjectContext();//???
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -30,8 +30,9 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
     const handleAddProject = () => {
         setIsAddModalOpen(true);
   };
-    const handleDeleteProject = () => {
-        
+    const handleDeleteProject = (deletedProjectId: number) => {
+        deleteProject(deletedProjectId);
+        onProjectAdd();//notifies higher-level components
     }
   return (
     <div>

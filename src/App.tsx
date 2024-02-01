@@ -8,8 +8,11 @@ const App: React.FC = () => {
   const handleProjectAdd = () => {
     setProjects(getProjects()); // Update projects state after adding a new project
   };
+  const handleProjectDelete = () => {
+    setProjects(getProjects());
+  }
   return (
-    <ProjectProvider onProjectAdd={handleProjectAdd}>
+    <ProjectProvider onProjectAdd={handleProjectAdd} onProjectDelete={handleProjectDelete}>
       <div>
         <ProjectList projects={projects} />
       </div>

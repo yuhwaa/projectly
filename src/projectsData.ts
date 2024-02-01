@@ -17,6 +17,10 @@ const addProject = (newProject: Project) => {
   projects = [...projects, newProject];
 };
 
+const deleteProject = (deletedProjectId: number) => {
+  projects = projects.filter((project) => project.id !== deletedProjectId);
+};
+
 const getProjects = () => projects;
 
-export { addProject, getProjects };
+export { addProject, getProjects, deleteProject };
