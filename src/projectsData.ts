@@ -1,15 +1,18 @@
 // projectsData.ts
 interface Project {
   id: number;
+  client: string;
   name: string;
   description: string;
-  // dueDate: string;
-  // priority: string;
+  status: string;
+  owner: string;
+  dueDate: string;
+  priority: string;
 }
 
 let projects: Project[] = [
-  { id: 1, name: 'Project 1', description: 'Description for Project 1' },
-  { id: 2, name: 'Project 2', description: 'Description for Project 2' },
+  { id: 1, client: 'Google', name: 'Project 1', description: 'Description for Project 1', status: 'Backlog', owner: 'Bob', dueDate: '', priority: 'High' },
+  { id: 2, client: 'Meta', name: 'Project 2', description: 'Description for Project 2', status: 'In Progress', owner: 'No One', dueDate: '', priority: 'High'  },
   // Add more projects as needed
 ];
 

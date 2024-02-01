@@ -3,8 +3,11 @@ import { useState } from "react";
 interface ProjectEditModalProps {
     project: {
     id: number;
+    client: string;
     name: string;
     description: string;
+    status: string;
+    owner: string;
     dueDate: string;
     priority: string;
   };
@@ -12,8 +15,13 @@ interface ProjectEditModalProps {
 }
 
 const ProjectEditModal: React.FC<ProjectEditModalProps> = ({ project, onClose }) => {
+    const [editedClient, setEditedClient] = useState(project.client);
     const [editedName, setEditedName] = useState(project.name);
-    const [editedDescription, setEditedDescription] = useState(project.description)
+    const [editedDescription, setEditedDescription] = useState(project.description);
+    const [editedStatus, setEditedStatus] = useState(project.status);
+    const [editedOwner, setEditedOwner] = useState(project.owner);
+    const [editedDueDate, setEditedDueDate] = useState(project.dueDate);
+    const [editedPriority, setPriority] = useState(project.priority);
 
     const handleSave = () => {
         onClose();
@@ -27,6 +35,15 @@ const ProjectEditModal: React.FC<ProjectEditModalProps> = ({ project, onClose })
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
         <div className="bg-white p-8 rounded-md w-96">
           <h2 className="text-2xl font-bold mb-4">Edit Project</h2>
+
+          <label className="block mb-2">Client:</label>
+          <input
+          type="text"
+          value={editedClient}
+          onChange={(e) => setEditedClient(e.target.value)}
+          className="w-full p-2 mb-4 border rounded"
+          />
+
           <label className="block mb-2">Name:</label>
           <input
             type="text"

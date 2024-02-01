@@ -4,20 +4,14 @@ import ProjectEditModal from "./ProjectEditModal";
 import { Project, deleteProject } from '../projectsData';
 import { useProjectContext } from "../context/ProjectContext";
 
-// interface Project {
-//     id: number;
-//     name: string;
-//     description: string;
-//     dueDate: string;
-//     priority: string;
-// }
-
 interface ProjectListProps {
     projects: Project[];
 }
 
 const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
-    const { onProjectAdd } = useProjectContext();//???
+    const { onProjectAdd } = useProjectContext();
+    //destructuring assignment. useProjectContext() is a custom hook created to access the values from ProjectContext. 
+    //useProjectContext hook returns an object with a property onProjectAdd (the value from the ProjectContext). By using { onProjectAdd }, you're saying, "Extract the onProjectAdd property from the object returned by useProjectContext and assign it to a variable named onProjectAdd."
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -43,10 +37,13 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
         {projects.map((project) => (
           <li key={project.id}>
           <div className="bg-white rounded-lg shadow-md p-4">
+          <p className="mb-2">Client: <span className="text-md font-semibold mb-2">{project.client}</span></p>
             <h3 className="text-lg font-semibold mb-2">{project.name}</h3>
             <p className="mb-2">{project.description}</p>
-            {/* <p className="mb-2">Due Date: {project.dueDate}</p>
-            <p className="mb-2">Priority: {project.priority}</p> */}
+            <p className="mb-2">Status: {project.status}</p>
+            <p className="mb-2">Owner: {project.owner}</p>
+            <p className="mb-2">Due Date: {project.dueDate}</p>
+            <p className="mb-2">Priority: {project.priority}</p>
             <button
               onClick={() => handleEditProject(project)}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
