@@ -24,6 +24,8 @@ const ProjectAddModal: React.FC<ProjectAddModalProps> = ({ onClose }) => {
         client: client,
         name: name,
         description: description,
+        status: status,
+        owner: owner,
         dueDate: dueDate,
         priority: priority,
     };
