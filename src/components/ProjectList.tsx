@@ -30,7 +30,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
     }
   return (
     <div>
-        <button onClick={handleAddProject} className="mb-4 px-4 py-2 bg-green-500 text-white rounded">Add Project</button>
+        <button onClick={handleAddProject} className="fixed right-0 mb-4 px-4 py-2 bg-green-500 text-white rounded">Add Project</button>
         <h2 className="text-xl font-semibold mb-2">Projects</h2>
         <div className="grid gap-4">
         <ul>

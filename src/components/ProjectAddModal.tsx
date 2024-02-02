@@ -40,56 +40,61 @@ const ProjectAddModal: React.FC<ProjectAddModalProps> = ({ onClose }) => {
         <h2 className="text-2xl font-bold mb-4">Add Project</h2>
         {/*Client*/}
         <div className="flex items-center mb-4">
-        <label className="mr-2">Client:</label>
+        <label htmlFor="client" className="mr-2">Client:</label>
         <input
           type="text"
           value={client}
           onChange={(e) => setClient(e.target.value)}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded-md"
         />
         </div>
         {/*Name*/}
         <div className="flex items-center mb-4">
-        <label className="mr-2">Project:</label>
+        <label htmlFor="project" className="mr-2">Project:</label>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded-md"
         />
         </div>
         {/*Description*/}
-        <label className="block mb-2">Description:</label>
+        <div className="items-center mb-4">
+        <label htmlFor="description" className="block mb-2">Description:</label>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full p-2 mb-4 border rounded"
+          className="w-full p-2 border rounded-md"
         />
+        </div>
         {/*Status*/}
-        <label htmlFor="priority" className="mb-1">
+        <div className="flex items-center mb-4">
+        <label htmlFor="status" className="mr-2">
           Status:
         </label>
         <select
           id="status"
           value={status}
           onChange={(e) => setStatus(e.target.value)}
-          className="px-3 py-2 border rounded-md ml-2 mb-4"
+          className="p-2 border rounded-md"
         >
-          <option value="high">Backlog</option>
-          <option value="medium">In Progress</option>
-          <option value="low">Done</option>
+          <option value="Backlog">Backlog</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Done">Done</option>
         </select>
+        </div>
         {/*Owner*/}
         <div className="flex items-center mb-4">
-        <label className="mr-2">Owner:</label>
+        <label htmlFor="owner" className="mr-2">Owner:</label>
         <input
           value={owner}
           onChange={(e) => setOwner(e.target.value)}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded-md"
         />
         </div>
         {/*Due Date*/}
-        <label htmlFor="dueDate" className="mb-1">
+        <div className="flex items-center mb-4">
+        <label htmlFor="dueDate" className="mr-2">
           Due Date: 
         </label>
         <input
@@ -97,22 +102,23 @@ const ProjectAddModal: React.FC<ProjectAddModalProps> = ({ onClose }) => {
           id="dueDate"
           value={dueDate}
           onChange={(e) => setDueDate(e.target.value)}
-          className="px-3 py-2 border rounded-md ml-2 mb-4"
+          className="p-2 border rounded-md"
         />
+        </div>
         {/*Priority*/}   
-        <div>
-        <label htmlFor="priority" className="mb-1">
+        <div className="flex items-center mb-4">
+        <label htmlFor="priority" className="mr-2">
           Priority:
         </label>
         <select
           id="priority"
           value={priority}
           onChange={(e) => setPriority(e.target.value)}
-          className="px-3 py-2 border rounded-md ml-2 mb-4"
+          className="p-2 border rounded-md"
         >
-          <option value="high">High</option>
-          <option value="medium">Medium</option>
-          <option value="low">Low</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
         </select>
         </div>
 
