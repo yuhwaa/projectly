@@ -30,13 +30,13 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
     }
   return (
     <div>
-        <button onClick={handleAddProject} className="fixed right-0 mb-4 px-4 py-2 bg-green-500 text-white rounded">Add Project</button>
-        <h2 className="text-xl font-semibold mb-2">Projects</h2>
+        <button onClick={handleAddProject} className="fixed right-0 m-4 px-4 py-2 bg-green-500 text-white rounded">Add Project</button>
+        <h1 className="text-xl font-semibold mb-2 p-4">Projects</h1>
         <div className="grid gap-4">
         <ul>
         {projects.map((project) => (
           <li key={project.id}>
-          <div className="bg-white rounded-lg shadow-md p-4">
+          <div className="bg-white rounded-lg shadow-md p-4 m-4">
           <p className="mb-2">Client: <span className="text-md font-semibold mb-2">{project.client}</span></p>
             <h3 className="text-lg font-semibold mb-2">{project.name}</h3>
             <p className="mb-2">{project.description}</p>
