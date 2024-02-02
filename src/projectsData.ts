@@ -11,13 +11,18 @@ interface Project {
 }
 
 let projects: Project[] = [
-  { id: 1, client: 'Google', name: 'Project 1', description: 'Description for Project 1', status: 'Backlog', owner: 'Bob', dueDate: '', priority: 'High' },
-  { id: 2, client: 'Meta', name: 'Project 2', description: 'Description for Project 2', status: 'In Progress', owner: 'No One', dueDate: '', priority: 'High'  },
+  { id: 1, client: 'Google', name: 'Example Project 1', description: 'Description for Project 1', status: 'Backlog', owner: 'Bob', dueDate: '2026-10-11', priority: 'High' },
+  { id: 2, client: 'Meta', name: 'Example Project 2', description: 'Description for Project 2', status: 'In Progress', owner: 'Daisy', dueDate: '2024-02-28', priority: 'Low'  },
   // Add more projects as needed
 ];
 
 const addProject = (newProject: Project) => {
   projects = [...projects, newProject];
+};
+
+const getProjects = (): Project[] => {
+  //sort projects by dueDate in ascending order
+  return projects.slice().sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime());
 };
 
 const editProject = (updatedProject: Project) => {
@@ -28,7 +33,5 @@ const editProject = (updatedProject: Project) => {
 const deleteProject = (deletedProjectId: number) => {
   projects = projects.filter((project) => project.id !== deletedProjectId);
 };
-
-const getProjects = () => projects;
 
 export { addProject, getProjects, editProject, deleteProject };
