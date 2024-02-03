@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProjectAddModal from './ProjectAddModal';
 import ProjectEditModal from "./ProjectEditModal";
 import { Project, deleteProject } from '../projectsData';
@@ -16,6 +16,15 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
+    useEffect(() => {
+      const newlyAddedProject = projects[projects.length - 1];
+      if (newlyAddedProject) {
+        const newProjectElement = document.getElementById(`${newlyAddedProject.id}`);
+        if (newProjectElement) {
+          newProjectElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }, [projects]);
     
     const handleEditProject = (project: Project) => {
         setSelectedProject(project);
@@ -35,7 +44,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
         <div className="grid gap-4">
         <ul>
         {projects.map((project) => (
-          <li key={project.id}>
+          <li key={project.id} id={project.id.toString()}>
           <div className="bg-white rounded-lg shadow-md p-4 m-4">
           <p className="mb-2">Client: <span className="text-md font-semibold mb-2">{project.client}</span></p>
             <h3 className="text-lg font-semibold mb-2">{project.name}</h3>
@@ -68,7 +77,8 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
         )}
         {isAddModalOpen && (
             <ProjectAddModal
-                onClose={() => setIsAddModalOpen(false)}
+              onClose={() => setIsAddModalOpen(false)}
+              onProjectAdd={onProjectAdd}
             />
         )}
       </div>
