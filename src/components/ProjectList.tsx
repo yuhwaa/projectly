@@ -15,14 +15,23 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [latestAddedProjectId, setLatestAddedProjectId] = useState<number | null>(null);
 
     useEffect(() => {
       const newlyAddedProject = projects[projects.length - 1];
       if (newlyAddedProject) {
+        setLatestAddedProjectId(newlyAddedProject.id);
+        // Scroll to the newly added project
         const newProjectElement = document.getElementById(`${newlyAddedProject.id}`);
         if (newProjectElement) {
           newProjectElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+        // Temporarily highlight the newly added project
+        const highlightTimeout = setTimeout(() => {
+        setLatestAddedProjectId(null);
+        }, 1000); // Adjust the timeout duration as needed
+        // Cleanup the timeout to avoid memory leaks
+        return () => clearTimeout(highlightTimeout);
       }
     }, [projects]);
     
@@ -44,8 +53,13 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
         <div className="grid gap-4">
         <ul>
         {projects.map((project) => (
-          <li key={project.id} id={project.id.toString()}>
-          <div className="bg-white rounded-lg shadow-md p-4 m-4">
+          <li 
+            key={project.id} 
+            id={project.id.toString()}
+          >
+          <div 
+            className="bg-white rounded-lg shadow-md p-4 m-4" 
+            style={{ background: project.id === latestAddedProjectId ? 'lightyellow' : 'transparent'}}>
           <p className="mb-2">Client: <span className="text-md font-semibold mb-2">{project.client}</span></p>
             <h3 className="text-lg font-semibold mb-2">{project.name}</h3>
             <p className="mb-2">{project.description}</p>
