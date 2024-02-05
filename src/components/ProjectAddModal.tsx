@@ -1,13 +1,14 @@
 // src/components/ProjectAddModal.tsx
 import React, { useState } from 'react';
-import { addProject } from '../projectsData'; // Update the path accordingly
+import { Project, addProject } from '../projectsData'; // Update the path accordingly
 import { useProjectContext } from "../context/ProjectContext";
 
 interface ProjectAddModalProps {
   onClose: () => void;
+  handleProjectAdd: (newProject: Project) => void;
 }
 
-const ProjectAddModal: React.FC<ProjectAddModalProps> = ({ onClose }) => {
+const ProjectAddModal: React.FC<ProjectAddModalProps> = ({ onClose, handleProjectAdd }) => {
     const [client, setClient] = useState('');
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -29,8 +30,9 @@ const ProjectAddModal: React.FC<ProjectAddModalProps> = ({ onClose }) => {
         dueDate: dueDate,
         priority: priority,
     };
-    addProject(newProject); // Add the new project to the projects array
-    onProjectAdd(); // Inform App.tsx that a new project has been added???
+    addProject(newProject); // Add the new project to the projects array //this comes from projectsData
+    onProjectAdd(); // Inform App.tsx that a new project has been added //this comes from ProjectContext
+    handleProjectAdd(newProject);
     onClose(); // Close the modal after saving
   };
 
@@ -42,6 +44,7 @@ const ProjectAddModal: React.FC<ProjectAddModalProps> = ({ onClose }) => {
         <div className="flex items-center mb-4">
         <label htmlFor="client" className="mr-2">Client:</label>
         <input
+          id="client"
           type="text"
           value={client}
           onChange={(e) => setClient(e.target.value)}
@@ -50,8 +53,9 @@ const ProjectAddModal: React.FC<ProjectAddModalProps> = ({ onClose }) => {
         </div>
         {/*Name*/}
         <div className="flex items-center mb-4">
-        <label htmlFor="project" className="mr-2">Project:</label>
+        <label htmlFor="name" className="mr-2">Project:</label>
         <input
+          id="name"
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -62,6 +66,7 @@ const ProjectAddModal: React.FC<ProjectAddModalProps> = ({ onClose }) => {
         <div className="items-center mb-4">
         <label htmlFor="description" className="block mb-2">Description:</label>
         <textarea
+          id="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           className="w-full p-2 border rounded-md"
@@ -87,6 +92,7 @@ const ProjectAddModal: React.FC<ProjectAddModalProps> = ({ onClose }) => {
         <div className="flex items-center mb-4">
         <label htmlFor="owner" className="mr-2">Owner:</label>
         <input
+          id="owner"
           value={owner}
           onChange={(e) => setOwner(e.target.value)}
           className="w-full p-2 border rounded-md"
