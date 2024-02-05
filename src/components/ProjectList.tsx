@@ -23,10 +23,10 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
     if (newProjectRef.current) {
       newProjectRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
       // Temporarily highlight the newly added project
-      newProjectRef.current.style.backgroundColor = "yellow"; // Add a highlight class
+      newProjectRef.current.classList.add('bg-red-400'); // Add a highlight class
       setTimeout(() => {
-        newProjectRef.current?.style.backgroundColor = ''; // Remove the highlight class after a delay
-      }, 5000); // Adjust the timeout duration as needed
+        newProjectRef.current?.classList.remove('bg-red-400'); // Remove the highlight class after a delay
+      }, 3000); // Adjust the timeout duration as needed
     }
   }, []);
 
@@ -54,6 +54,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
             key={project.id} 
             id={`project-${project.id}`}
             ref={project.id === projects[projects.length - 1].id ? newProjectRef : null}
+            className=""
           >
           <div 
             className="rounded-lg shadow-md p-4 m-4" 
