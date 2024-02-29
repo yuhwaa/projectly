@@ -1,38 +1,35 @@
 import { createContext, useContext, ReactNode, useState } from "react";
+//import { getProjects } from '../projectsData'; 
+
+export interface Project {
+  id: number;
+  client: string;
+  name: string;
+  description: string;
+  status: string;
+  owner: string;
+  dueDate: string;
+  priority: string;
+}
 
 interface ProjectContextProps {
     onProjectAdd: () => void;
     onProjectDelete: () => void;
-    //newProjectContext: Project | null; // Define newProject in the context
-}
-
-export interface Project {
-    id: number;
-    client: string;
-    name: string;
-    description: string;
-    status: string;
-    owner: string;
-    dueDate: string;
-    priority: string;
-  }
-  
-interface NewProjectContextProps {
-  newProject: Project | null;
-  setNewProject: React.Dispatch<React.SetStateAction<Project | null>>;
+    //projects: Project | null;
+    //setProjects: React.Dispatch<React.SetStateAction<Project | null>>;
+    newProject: Project | null; // Define newProject in the context
+    setNewProject: React.Dispatch<React.SetStateAction<Project | null>>; // Setter for newProject
 }
 
 const ProjectContext = createContext<ProjectContextProps | undefined>(undefined);
-const NewProjectContext = createContext<NewProjectContextProps | undefined>(undefined);
 
 export const ProjectProvider: React.FC<{ children: ReactNode } & ProjectContextProps> = ({ children, onProjectAdd, onProjectDelete }) => {
-    const [newProject, setNewProject] = useState<Project | null>(null);
+  //const [projects, setProjects] = useState(getProjects());
+  const [newProject, setNewProject] = useState<Project | null>(null);
 
   return (
-    <ProjectContext.Provider value={{ onProjectAdd, onProjectDelete }}>
-      <NewProjectContext.Provider value={{ newProject, setNewProject }}>
-        {children}
-      </NewProjectContext.Provider>
+    <ProjectContext.Provider value={{ onProjectAdd, onProjectDelete, newProject, setNewProject }}>
+            {children}
     </ProjectContext.Provider>
   );
 };
@@ -40,15 +37,7 @@ export const ProjectProvider: React.FC<{ children: ReactNode } & ProjectContextP
 export const useProjectContext = () => {
   const context = useContext(ProjectContext);
   if (!context) {
-    throw new Error('useProjectContext must be used within a ProjectProvider');
-  }
-  return context;
-};
-
-export const useNewProjectContext = () => {
-  const context = useContext(NewProjectContext);
-  if (!context) {
-    throw new Error('useNewProjectContext must be used within a ProjectProvider');
+      throw new Error('useProjectContext must be used within a ProjectProvider');
   }
   return context;
 };

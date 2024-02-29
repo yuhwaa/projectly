@@ -1,35 +1,52 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import ProjectAddModal from './ProjectAddModal';
-import ProjectEditModal from "./ProjectEditModal";
-import { Project, addProject, deleteProject } from '../projectsData';
-import { useProjectContext, useNewProjectContext } from "../context/ProjectContext";
+import ProjectEditModal from './ProjectEditModal';
+import { Project, deleteProject } from '../projectsData';
+import { useProjectContext } from "../context/ProjectContext";
 
 interface ProjectListProps {
     projects: Project[];
+    //newProject: Project | null; // Add newProject prop
+    //setNewProject: React.Dispatch<React.SetStateAction<Project | null>>; // Add setNewProject prop
 }
 
 const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
-    const { onProjectAdd } = useProjectContext();
-    //destructuring assignment. useProjectContext() is a custom hook created to access the values from ProjectContext. 
-    //useProjectContext hook returns an object with a property onProjectAdd (the value from the ProjectContext). By using { onProjectAdd }, you're saying, "Extract the onProjectAdd property from the object returned by useProjectContext and assign it to a variable named onProjectAdd."
+    const { onProjectAdd, newProject, setNewProject } = useProjectContext(); // Access newProject from context
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const newProjectRef = useRef<HTMLLIElement | null>(null);
-    const { newProject } = useNewProjectContext();
-    // Define handleProjectAdd using useCallback to ensure the latest projects array is used
-    const handleProjectAdd = useCallback((newProject: Project) => {
-    // Scroll to the newly added project
-    if (newProjectRef.current) {
-      newProjectRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      // Temporarily highlight the newly added project
-      newProjectRef.current.classList.add('bg-red-400'); // Add a highlight class
-      setTimeout(() => {
-        newProjectRef.current?.classList.remove('bg-red-400'); // Remove the highlight class after a delay
-      }, 3000); // Adjust the timeout duration as needed
-    }
-  }, []);
 
+    const setNewProjectRef = useCallback((node: HTMLLIElement | null) => {
+      newProjectRef.current = node;
+      if (node) {
+          //newProjectRef.current = node;
+          // Scroll and highlight the newly added project
+          //if (node.id === `project-${newProject?.id}`) {
+              node.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              node.classList.add('bg-red-400'); // Highlight the new project
+              setTimeout(() => {
+                  node.classList.remove('bg-red-400'); // Remove highlight after 3 seconds
+              }, 3000);
+              setNewProject(null); // Reset newProject after highlighting
+          //}
+      }
+  }, [newProject, setNewProject]);
+
+//   useEffect(() => {
+//     // Scroll and highlight the newly added project when newProject changes
+//     if (newProject) {
+//         const node = document.getElementById(`project-${newProject.id}`);
+//         if (node) {
+//             node.scrollIntoView({ behavior: 'smooth', block: 'start' });
+//             node.classList.add('bg-red-400'); // Highlight the new project
+//             setTimeout(() => {
+//                 node.classList.remove('bg-red-400'); // Remove highlight after 3 seconds
+//             }, 3000);
+//             setNewProject(null);
+//         }
+//     }
+// }, [newProject, setNewProject]);
     
     const handleEditClick = (project: Project) => {
         setSelectedProject(project);
@@ -53,7 +70,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
           <li 
             key={project.id} 
             id={`project-${project.id}`}
-            ref={project.id === newProject?.id ? newProjectRef : null}
+            ref={newProject && project.id === newProject.id ? setNewProjectRef : null}          
           >
           <div 
             className="rounded-lg shadow-md p-4 m-4" 
@@ -89,8 +106,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
         )}
         {isAddModalOpen && (
             <ProjectAddModal
-              onClose={() => setIsAddModalOpen(false)}
-              handleProjectAdd={handleProjectAdd}
+            onClose={() => setIsAddModalOpen(false)}
             />
         )}
       </div>
