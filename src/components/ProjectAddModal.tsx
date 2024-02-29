@@ -1,14 +1,16 @@
 // src/components/ProjectAddModal.tsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Project, addProject } from '../projectsData'; // Update the path accordingly
-import { useProjectContext, useNewProjectContext } from "../context/ProjectContext";
+import { useProjectContext } from "../context/ProjectContext";
 
 interface ProjectAddModalProps {
   onClose: () => void;
-  handleProjectAdd: (newProject: Project) => void;
+  //handleProjectAdd: (newProject: Project) => void;
+  //newProject: Project | null;
+  //setNewProject: React.Dispatch<React.SetStateAction<Project | null>>;
 }
 
-const ProjectAddModal: React.FC<ProjectAddModalProps> = ({ onClose, handleProjectAdd }) => {
+const ProjectAddModal: React.FC<ProjectAddModalProps> = ({ onClose }) => {
     const [client, setClient] = useState('');
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -16,11 +18,10 @@ const ProjectAddModal: React.FC<ProjectAddModalProps> = ({ onClose, handleProjec
     const [owner, setOwner] = useState('No One');
     const [dueDate, setDueDate] = useState('');
     const [priority, setPriority] = useState('High');
-    const { onProjectAdd } = useProjectContext();
-    const { newProject, setNewProject } = useNewProjectContext(); // Access the newProject state
+    const { onProjectAdd, setNewProject } = useProjectContext();
     
     const handleSave = () => {
-      const newProjectContext: Proejct = {
+      const project: Proejct = {
         id: Date.now(),
         client: client,
         name: name,
@@ -29,13 +30,19 @@ const ProjectAddModal: React.FC<ProjectAddModalProps> = ({ onClose, handleProjec
         owner: owner,
         dueDate: dueDate,
         priority: priority,
-      };    
-    // Handle saving the new project (you can add API calls or state management here)
-    setNewProject(newProjectContext)
-    addProject(newProjectContext); // Add the new project to the projects array //this comes from projectsData
+      }; 
+         
+    addProject(project); // Add the new project to the projects array //this comes from projectsData
+
+    setNewProject(project);
+    
+    //handleProjectAdd(newProject);
     onProjectAdd(); // Inform App.tsx that a new project has been added //this comes from ProjectContext
-    handleProjectAdd(newProjectContext);
+    
     onClose(); // Close the modal after saving
+
+    alert(`${project.name} added`);
+    
   };
 
   return (
