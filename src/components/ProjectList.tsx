@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import ProjectAddModal from './ProjectAddModal';
 import ProjectEditModal from "./ProjectEditModal";
 import { Project, addProject, deleteProject } from '../projectsData';
-import { useProjectContext } from "../context/ProjectContext";
+import { useProjectContext, useNewProjectContext } from "../context/ProjectContext";
 
 interface ProjectListProps {
     projects: Project[];
@@ -16,7 +16,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const newProjectRef = useRef<HTMLLIElement | null>(null);
-    
+    const { newProject } = useNewProjectContext();
     // Define handleProjectAdd using useCallback to ensure the latest projects array is used
     const handleProjectAdd = useCallback((newProject: Project) => {
     // Scroll to the newly added project
@@ -53,8 +53,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
           <li 
             key={project.id} 
             id={`project-${project.id}`}
-            ref={project.id === projects[projects.length - 1].id ? newProjectRef : null}
-            className=""
+            ref={project.id === newProject?.id ? newProjectRef : null}
           >
           <div 
             className="rounded-lg shadow-md p-4 m-4" 
