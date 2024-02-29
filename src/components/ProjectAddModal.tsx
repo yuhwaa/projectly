@@ -19,7 +19,6 @@ const ProjectAddModal: React.FC<ProjectAddModalProps> = ({ onClose }) => {
     const [dueDate, setDueDate] = useState('');
     const [priority, setPriority] = useState('High');
     const { onProjectAdd, setNewProject } = useProjectContext();
-    //const { newProject, setNewProject } = useNewProjectContext(); // Access the newProject state
     
     const handleSave = () => {
       const project: Proejct = {

@@ -24,9 +24,9 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
           // Scroll and highlight the newly added project
           //if (node.id === `project-${newProject?.id}`) {
               node.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              node.classList.add('bg-red-400'); // Highlight the new project
+              node.classList.add('bg-green-100'); // Highlight the new project
               setTimeout(() => {
-                  node.classList.remove('bg-red-400'); // Remove highlight after 3 seconds
+                  node.classList.remove('bg-green-100'); // Remove highlight after 3 seconds
               }, 3000);
               setNewProject(null); // Reset newProject after highlighting
           //}
