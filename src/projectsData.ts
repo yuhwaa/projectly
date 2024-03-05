@@ -11,8 +11,8 @@ interface Project {
 }
 
 let projects: Project[] = [
-  { id: 1, client: 'Google', name: 'Example Project 1', description: 'Description for Project 1', status: 'Backlog', owner: 'Bob', dueDate: '2026-10-11', priority: 'High' },
-  { id: 2, client: 'Meta', name: 'Example Project 2', description: 'Description for Project 2', status: 'In Progress', owner: 'Daisy', dueDate: '2024-02-28', priority: 'Low'  },
+  { id: 1, client: 'Microsoft', name: 'Example Project 1', description: 'Description for Project 1', status: 'Backlog', owner: 'Bob', dueDate: '2026-10-11', priority: 'High' },
+  //{ id: 2, client: 'Meta', name: 'Example Project 2', description: 'Description for Project 2', status: 'In Progress', owner: 'Daisy', dueDate: '2024-02-28', priority: 'Low'  },
   // Add more projects as needed
 ];
 
